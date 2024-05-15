@@ -1,0 +1,86 @@
+{% extends 'shop\layouts\main.html' %}
+
+{% block content %}
+<style>
+/* Updated styles for product cards with aligned text and images */
+.category {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.card {
+  height: 100%;
+  border-radius: 8px;
+  overflow: hidden;
+  color: black;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  background-color: azure; /* Premium matte color (deep charcoal/dark graphite) */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow effect for a refined appearance */
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4); /* Enhanced shadow on hover for a premium glossy effect */
+}
+
+.card-body {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  color: #333; /* Text color */
+}
+
+.card-image-top {
+  width: 100%;
+  height: 240px; /* Adjusted height */
+  object-fit: cover;
+  transition: transform 0.3s ease-in-out;
+}
+
+.card:hover .card-image-top {
+  transform: scale(1.1);
+}
+
+.card-title {
+  font-size: 1.2rem;
+  margin-bottom: 8px;
+  font-weight: bold;
+}
+
+.card-text {
+  font-size: 1rem;
+  line-height: 1.4;
+  margin-bottom: 0;
+}
+</style>
+
+<section class="bg-light py-4 my-5">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <h4 class="mb-3">Shop By Categories</h4>
+        <hr style="border-color: #b8bfc2;">
+      </div>
+      {% for item in category %}
+      <div class="col-md-4 col-lg-3 category">
+        <div class="card my-3">
+          <a href="{% url 'collections' item.name %}">
+            <img src="{{ item.image.url }}" class="card-image-top" alt="{{ item.name }}" />
+            <div class="card-body">
+              <h5 class="card-title text-primary">{{ item.name }}</h5>
+              <p class="card-text">{{ item.description }}</p>
+            </div>
+          </a>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% endblock content %}

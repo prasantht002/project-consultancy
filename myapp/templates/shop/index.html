@@ -1,0 +1,81 @@
+{% extends 'shop/layouts/main.html' %}
+
+{% block title %}
+Sugan SuperMarket
+{% endblock title %}
+
+{% block content %}
+{% include 'shop/inc/slider.html' %}
+<style>
+/* Card animation and design */
+.product-card {
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  background-color: #ffffff;
+  margin-bottom: 20px;
+}
+
+.product-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+}
+
+.card-img-top {
+  height: 250px;
+  object-fit: cover;
+}
+
+.card-body {
+  padding: 15px;
+  background-color:azure;
+}
+
+.card-title {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+  color: #333333;
+}
+
+.old-price {
+  color: red;
+  font-weight: bold;
+  text-decoration: line-through;
+  margin-right: 5px;
+}
+
+.new-price {
+  background-color: green;
+  color: white;
+  font-weight: bold;
+  border-radius: 5px;
+  padding: 3px 8px;
+}
+</style>
+
+<div class="container" style="margin-top: 70px;">
+  <div class="row">
+    <div class="col-12">
+      <h4 class="mb-3">Trending Products</h4>
+      <hr style="border-color:#b8bfc2;">
+    </div>
+    {% for item in products %}
+    <div class="col-md-4 col-lg-3">
+      <div class="card my-3 product-card">
+        <a href="{% url 'product_details' item.category.name item.name %}">
+          <img src="{{ item.product_image.url }}" class="card-img-top" alt="Product Image">
+          <div class="card-body">
+            <h5 class="card-title">{{ item.name }}</h5>
+            <p class="card-text">
+              <span class="old-price"><s>Rs.{{ item.original_price | stringformat:'d'}}</s></span>
+              <span class="new-price">Rs.{{ item.selling_price | stringformat:'d' }}</span>
+            </p>
+          </div>
+        </a>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock content %}
